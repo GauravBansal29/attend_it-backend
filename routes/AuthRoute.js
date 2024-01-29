@@ -8,6 +8,7 @@ router.get('/', (req, res)=>{
     res.json("auth working successfully");
 })
 
+// register 
 router.post('/register', async(req, res)=>{
     try{
         const {teachername, email, password} = req.body;
