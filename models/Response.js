@@ -9,6 +9,12 @@ const ResponseSchema= new mongoose.Schema({
     rollno:{
         type: String,
         required:true
+    },
+    latitude:{
+        type:String
+    },
+    longitude:{
+        type:String
     }
 },
 {timestamps: true});

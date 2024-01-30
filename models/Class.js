@@ -10,6 +10,14 @@ const ClassSchema= new mongoose.Schema({
     responses:{
         ref: Response,
         type: [Schema.Types.ObjectId]
+    },
+    latitude:{
+        type:String,
+        required: true
+    },
+    longitude:{
+        type:String,
+        required: true
     }
 },
 {timestamps: true});

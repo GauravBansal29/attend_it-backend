@@ -40,11 +40,13 @@ router.get('/:teacherId', async (req, res)=>{
 
 router.post('/add-class/:classroomId', async (req, res)=>{
     try{
-           const {className}= req.body;
+           const {className, latitude, longitude}= req.body;
            const {classroomId}= req.params;
            
            const newClass= new Class({
-             name: className
+             name: className,
+             latitude: latitude,
+             longitude: longitude
            });
            
            await newClass.save();
@@ -80,11 +82,13 @@ router.get('/classes/:classroomId', async(req, res)=>{
 
 router.post('/add-response/:classId', async(req, res)=>{
     try{
-        const {name, rollno}= req.body;
+        const {name, rollno, latitude, longitude}= req.body;
         const {classId}= req.params;
         const newResponse= new Response({
             name: name,
-            rollno: rollno
+            rollno: rollno,
+            latitude: latitude,
+            longitude: longitude
         });
         await newResponse.save();
         const myclass= await Class.findById(classId);
