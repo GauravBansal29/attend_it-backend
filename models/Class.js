@@ -18,6 +18,11 @@ const ClassSchema= new mongoose.Schema({
     longitude:{
         type:String,
         required: true
+    },
+    acceptingResponse:{
+        type: Boolean,
+        default:true,
+        required: true
     }
 },
 {timestamps: true});

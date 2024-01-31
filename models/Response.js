@@ -11,10 +11,12 @@ const ResponseSchema= new mongoose.Schema({
         required:true
     },
     latitude:{
-        type:String
+        type:String,
+        required: true
     },
     longitude:{
-        type:String
+        type:String,
+        required: true
     }
 },
 {timestamps: true});

@@ -80,6 +80,36 @@ router.get('/classes/:classroomId', async(req, res)=>{
     }
 })
 
+router.get('/toggleAccept/:classId', async(req, res)=>{
+    try{
+        const {classId}= req.params;
+        const myclass= await Class.findById(classId);
+        const submission= !myclass.acceptingResponse;
+        await Class.findByIdAndUpdate(classId,{
+            acceptingResponse: submission
+        } );
+        return res.status(200).json("Toggled response submission");
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json("Internal Server Error");
+    }
+})
+
+router.get('/isAccepting/:classId', async(req, res)=>{
+    try{
+        const {classId}= req.params;
+        const myclass= await Class.findById(classId);
+        return res.status(200).json(myclass.acceptingResponse);
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).json("Internal Server Error");
+
+    }
+})
+
 router.post('/add-response/:classId', async(req, res)=>{
     try{
         const {name, rollno, latitude, longitude}= req.body;
@@ -92,6 +122,7 @@ router.post('/add-response/:classId', async(req, res)=>{
         });
         await newResponse.save();
         const myclass= await Class.findById(classId);
+        if(!myclass.acceptingResponse) return res.status(404).json("Form not accepting responses");
         const responses= myclass.responses;
         await Class.findByIdAndUpdate(classId, {
             responses: [...responses, newResponse._id]
